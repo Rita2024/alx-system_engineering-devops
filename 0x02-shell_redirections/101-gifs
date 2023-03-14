@@ -1,2 +1,2 @@
 #!/bin/bash
-cut -d '.' -f 2- |rev| LC_ALL=C sort -f
+cut -d'.'-f2-|rev|LC_ALL=C sort-f
