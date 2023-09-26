@@ -3,5 +3,4 @@
 
 apt-get update
 apt-get -y install apache2
-echo "Service localhost" >> /etc/apache2.conf
 service apache2 restart
