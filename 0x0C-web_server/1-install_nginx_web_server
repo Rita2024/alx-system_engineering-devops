@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+# Installs Nginx with the following configurations:
+#+    Listens on port 80.
+#+    Returns a page containing "Hello World!" when queried
+#++    at the root with a curl GET request.
+
+sudo apt-get update
+sudo apt-get install -y nginx
+sudo ufw allow 'Nginx HTTP'
+sudo mkdir /etc/nginx/html
+sudo chmod -R 755 /etc/nginx/html
+sudo touch /etc/nginx/html/index.html
+echo "Hello World!" | sudo tee /etc/nginx/index.html
+printf %s "server {
+ listen      80 default_server;
+ listen      [::]:80 default_server;
+ root        /etc/nginx/html;
+ index       index.html index.htm;
+}
+" | sudo tee /etc/nginx/sites-available/default
+
+sudo service nginx start

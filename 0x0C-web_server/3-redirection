@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+# installing new Nginx web server and configuring it so that /redirect_me is redirecting to another page
+# Install nginx --> engine x
+sudo apt-get update
+sudo apt-get -y install nginx
+sudo service nginx start
+sudo ufw allow 'Nginx HTTP'
+sudo chown -R "$USER":"$USER" /var/www/html
+sudo chmod -R 755 /var/www
+sudo echo -e "Hello World!" > /var/www/html/index.html
+sudo sed -i '24i\	rewrite ^/redirect_me https://www.youtube.com/watch?v=QH2-TGUlwu4 permanent;' /etc/nginx/sites-available/default
+sudo service nginx restart
