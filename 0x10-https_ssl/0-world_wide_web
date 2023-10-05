@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+# Define a function to get the subdomain information
+get_subdomain_info() {
+
+  dns_info=$(dig +short $1.$2)
+
+  if [[ -z $dns_info ]]; then
+    return
+  fi
+
+  record_type=$(echo $dns_info | awk '{print $1}')
+  destination=$(echo $dns_info | awk '{print $2}')
+
+  echo "The subdomain $1 is a $record_type record and points to $destination"
+}
+
+if [[ $# -eq 2 ]]; then
+  get_subdomain_info $2 $1
+
+  get_subdomain_info www $1
+  get_subdomain_info lb-01 $1
+  get_subdomain_info web-01 $1
+  get_subdomain_info web-02 $1
+fi
